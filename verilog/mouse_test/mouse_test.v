@@ -18,7 +18,7 @@ module mouse_test(
     );
 
     wire [9:0] x_pos;
-    wire [8:0] y_pos;
+    wire [9:0] y_pos;
     wire left_btn;
     wire right_btn;
 
