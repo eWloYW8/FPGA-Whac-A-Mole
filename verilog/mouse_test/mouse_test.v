@@ -35,10 +35,10 @@ module mouse_test(
 
     // Display the mouse position and button states on the 7-segment display
     wire [31:0] mouse_display_data = {
-        3'b0, left_btn,         // bit 31: left_btn
-        3'b0, right_btn,        // bit 27: right_btn
-        2'b0, x_pos[9:0],       // bits 25:16: x_pos
-        2'b0, y_pos[9:0]        // bits 15:7: y_pos
+        3'b0, left_btn,
+        3'b0, right_btn,
+        2'b0, x_pos[9:0],
+        2'b0, y_pos[9:0]
     };
     
     Sseg_Dev u_Sseg_Dev (
