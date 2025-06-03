@@ -1,4 +1,4 @@
-module mouse_test(
+module ps2_recorder_test(
     input   clk,
     input   ps2_clk,
     input   ps2_data,
@@ -17,30 +17,17 @@ module mouse_test(
         .div_res (div_res)
     );
 
-    wire [9:0] x_pos;
-    wire [9:0] y_pos;
-    wire left_btn;
-    wire right_btn;
+    wire [31:0] mouse_display_data;
 
-    ps2_mouse_driver u_ps2_mouse_driver (
+    ps2_recorder u_ps2_recorder (
         .clk     (clk),
         .reset   (~BTN),
         .ps2_clk (ps2_clk),
         .ps2_data(ps2_data),
-        .x_pos   (x_pos),
-        .y_pos   (y_pos),
-        .left_btn(left_btn),
-        .right_btn(right_btn)
+        .record  (mouse_display_data),
+        .finished()
     );
 
-    // Display the mouse position and button states on the 7-segment display
-    wire [31:0] mouse_display_data = {
-        3'b0, left_btn,
-        3'b0, right_btn,
-        2'b0, x_pos[9:0],
-        2'b0, y_pos[9:0]
-    };
-    
     Sseg_Dev u_Sseg_Dev (
         .clk     (clk),
         .start   (div_res[20]),

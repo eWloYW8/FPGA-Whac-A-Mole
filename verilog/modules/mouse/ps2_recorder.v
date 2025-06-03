@@ -39,9 +39,11 @@ module ps2_recorder (
                 bit_count <= 0;            // 重置计数器
                 // 更新record：左移8位，低8位存入新数据
                 record <= {record[23:0], shift_reg[9:2]};
-                count <= count + 1;       // 增加接收计数
-                if (count == 3'b100) begin
-                    // 当接收到3个数据包时，重置计数器
+                if (count < 3'b011) begin
+                    // 如果接收的包数小于4，增加计数
+                    count <= count + 1;
+                end else begin
+                    // 如果接收的包数达到4，重置计数
                     count <= 1;
                 end
             end

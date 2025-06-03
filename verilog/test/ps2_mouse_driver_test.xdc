@@ -20,6 +20,6 @@ set_property IOSTANDARD LVCMOS33 [get_ports ps2_clk]
 set_property PACKAGE_PIN M19 [get_ports ps2_data]
 set_property IOSTANDARD LVCMOS33 [get_ports ps2_data]
 
-# Push Button
+# Switches
 set_property PACKAGE_PIN AA10 [get_ports {BTN}]
 set_property IOSTANDARD LVCMOS15 [get_ports {BTN}]
