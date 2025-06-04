@@ -22,6 +22,8 @@ module game(
     reg [15:0] time_left; // 剩余时间
     reg [11:0] mole_up; // 地鼠是否出现
     reg [3:0] level; // 游戏等级
+    reg [2:0] live; // 生命值
+    wire is_lose = (live == 0); // 是否失败
     
     // 主循环
     always @(posedge clk or posedge reset) begin
@@ -30,9 +32,10 @@ module game(
             is_pause <= 0;
             is_win <= 0;
             score <= 0;
-            time_left <= 60; // 初始时间为60秒
+            time_left <= 0; // 时间
             mole_up <= 0; // 地鼠初始状态为不出现
             level <= 1; // 初始等级为1
+            live <= 5; // 初始生命值为5
         end else if (!is_start) begin
             if (mouse_click) begin
                 is_start <= 1; // 开始游戏
@@ -41,8 +44,21 @@ module game(
             if (mouse_click_pausebutton) begin
                 is_pause <= 0; // 继续游戏
             end
+        end else if (!is_pause && mouse_click_pausebutton) begin
+            is_pause <= 1; // 暂停游戏
+        end else if (is_win || is_lose) begin
+            if (mouse_click) begin
+                is_start <= 0; // 重置游戏
+                is_win <= 0; // 重置胜利状态
+                score <= 0; // 重置分数
+                time_left <= 0; // 重置时间
+                mole_up <= 0; // 重置地鼠状态
+                level <= 1; // 重置等级
+                live <= 5; // 重置生命值
+            end
         end else begin
-            // 待完成
+            // 游戏进行中
+            // 还没写完
         end
     end
 
