@@ -5,6 +5,7 @@ module ps2_mouse_driver (
     input ps2_data,         // PS/2 数据线
     output reg [11:0] x_pos, // 鼠标X坐标（0~639）
     output reg [11:0] y_pos, // 鼠标Y坐标（0~479）
+    output reg [31:0] seg_data, // 七段数码管数据
     output reg left_btn,    // 鼠标左键
     output reg right_btn    // 鼠标右键
 );

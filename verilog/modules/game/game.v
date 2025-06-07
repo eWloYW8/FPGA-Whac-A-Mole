@@ -5,10 +5,14 @@ module game(
     input [11:0] y_pos, // 鼠标Y坐标
     input left_btn, // 鼠标左键
     input right_btn, // 鼠标右键
-    input beep // 蜂鸣器
+    input clk_vga, // VGA时钟
+    input [10:0] screen_row_address, // 屏幕行地址
+    input [10:0] screen_col_address, // 屏幕列地址
+    output [5:0] note, // 蜂鸣器
+    output [31:0] seg_data, // 七段数码管数据
+    output [11:0] pixel_data // 像素数据输出（bgr）
 );
 
-    wire [5:0] note; // 音调信号
     wire [11:0] mouse_click_mole; // 鼠标是否击中地鼠
     wire mouse_click_pausebutton; // 鼠标是否点击暂停按钮
     wire mouse_click; // 鼠标是否点击
@@ -80,20 +84,13 @@ module game(
         end
     end
 
-
-    buzzer_driver buzzer_driver_inst (
-        .clk(clk),
-        .note(note),
-        .beep(beep)
-    );
-
     buzzer_controller buzzer_controller_inst (
         .clk(clk),
         .mouse_click_mole(mouse_click_mole),
         .mouse_click_pausebutton(mouse_click_pausebutton),
         .mouse_click(mouse_click),
         .is_win(is_win),
-        .enabled(beep),
+        .enabled(1), // 蜂鸣器启用
         .reset(reset),
         .note(note)
     );
@@ -117,16 +114,19 @@ module game(
 
     display_manager display_manager_inst (
         .clk(clk),
+        .clk_vga(clk_vga),
         .reset(reset),
         .mouse_x_pos(x_pos),
         .mouse_y_pos(y_pos),
         .is_start(is_start),
         .is_pause(is_pause),
         .mole_up(mole_up),
-        .level(level),
         .live(live),
         .is_win(is_win),
-        .is_lose(is_lose)
+        .is_lose(is_lose),
+        .screen_row_address(screen_row_address),
+        .screen_col_address(screen_col_address),
+        .pixel_data(pixel_data)
     );
 
 endmodule
