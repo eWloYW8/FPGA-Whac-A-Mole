@@ -22,7 +22,7 @@ module game(
     reg is_start; // 是否开始游戏
     reg is_pause; // 是否暂停游戏
     reg [15:0] score; // 分数
-    reg [15:0] time_left; // 剩余时间
+    reg [31:0] time_left; // 剩余时间
     reg [11:0] mole_up; // 地鼠是否出现
     reg [3:0] level; // 游戏等级
     reg [2:0] live; // 生命值
@@ -65,19 +65,19 @@ module game(
                 if (|mole_up) begin
                     live <= live - 1; // 如果地鼠还在，生命值减少
                     mole_up <= 0; // 地鼠消失
-                    time_left <= (random_number % 100 + 50) / level; // 重置时间
+                    time_left <= {(random_number % 100 + 50) / level, 22'b0}; // 重置时间
                 end else begin
                     mole_up[random_number % 12] <= 1; // 随机出现一个地鼠
-                    time_left <= (random_number % 100 + 50) / level; // 重置时间
+                    time_left <= {(random_number % 100 + 50) / level, 22'b0}; // 重置时间
                 end
             end
 
             if (|(mouse_click_mole & mole_up)) begin
                 // 如果鼠标点击地鼠且地鼠出现，增加分数
-                score <= score + 10 * level * time_left;
+                score <= score + level * time_left[31:22];
                 mole_up <= 0; // 地鼠消失
-                time_left <= (random_number % 100 + 50) / level; // 重置时间
-                if (score >= 100 * level) begin
+                time_left <= {(random_number % 100 + 50) / level, 22'b0}; // 重置时间
+                if (score >= 300 * level) begin
                     level <= level + 1; // 升级
                 end
             end
@@ -128,5 +128,12 @@ module game(
         .screen_col_address(screen_col_address),
         .pixel_data(pixel_data)
     );
+
+    assign seg_data = {
+        level,
+        1'b0, live,
+        8'b0,
+        score
+    };
 
 endmodule

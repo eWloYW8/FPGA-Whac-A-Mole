@@ -46,3 +46,9 @@ if __name__ == "__main__":
 
     # 生成 RGBA 16bit 格式 COE
     convert_image_to_coe("title.png", "title.coe", resize=(300, 250), mode="RGBA")
+
+    # 生成 RGBA 16bit 格式 COE
+    convert_image_to_coe("hammer_raw.png", "hammer.coe", resize=(30, 30), mode="RGBA")
+
+    # 生成 RGBA 16bit 格式 COE
+    convert_image_to_coe("gologo.png", "gologo.coe", resize=(45, 61), mode="RGBA")

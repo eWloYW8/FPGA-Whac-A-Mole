@@ -1,11 +1,11 @@
 module buzzer_controller(
-    input clk,        // 时钟信号
-    input [11:0] mouse_click_mole, // 鼠标是否击中地鼠
-    input mouse_click_pausebutton, // 鼠标是否点击暂停按钮
-    input mouse_click, // 鼠标是否点击
-    input is_win,
-    input enabled, // 蜂鸣器是否启用
-    input reset, // 重置信号
+    input wire clk,        // 时钟信号
+    input wire [11:0] mouse_click_mole, // 鼠标是否击中地鼠
+    input wire mouse_click_pausebutton, // 鼠标是否点击暂停按钮
+    input wire mouse_click, // 鼠标是否点击
+    input wire is_win,
+    input wire enabled, // 蜂鸣器是否启用
+    input wire reset, // 重置信号
     output reg [5:0] note // 6位音调，支持更多低音
 );
 
@@ -17,7 +17,15 @@ module buzzer_controller(
 
     reg [31:0] current_playtime; // 当前播放时间
 
-    always@(posedge clk) begin
+    wire [31:0] div_res;
+
+    clkdiv u_clkdiv (
+        .clk(clk),
+        .rst(reset),
+        .div_res(div_res)
+    );
+
+    always @(posedge div_res[17]) begin
         if (reset) begin
             is_playing <= 0;
             note <= 6'd0;
@@ -40,7 +48,7 @@ module buzzer_controller(
                 // 播放击中地鼠的音效
                 is_playing <= 1;
                 current_notelist <= {6'd1, 6'd2, 6'd3, 6'd4, 6'd5, 6'd6}; // 示例音符列表
-                current_notelist_length <= {6'd6, 6'd6, 6'd6, 6'd6, 6'd6, 6'd6}; // 示例长度
+                current_notelist_length <= {6'd20, 6'd20, 6'd20, 6'd20, 6'd20, 6'd20}; // 示例长度
                 current_playtime <= 32'd0;
             end else if (mouse_click_pausebutton) begin
                 // 播放暂停按钮点击音效
