@@ -52,3 +52,15 @@ if __name__ == "__main__":
 
     # 生成 RGBA 16bit 格式 COE
     convert_image_to_coe("gologo.png", "gologo.coe", resize=(45, 61), mode="RGBA")
+
+    # 生成 RGBA 16bit 格式 COE
+    convert_image_to_coe("win_raw.png", "win.coe", resize=(300, 300), mode="RGBA")
+    
+    # 生成 RGBA 16bit 格式 COE
+    convert_image_to_coe("failed_raw.png", "failed.coe", resize=(300, 300), mode="RGBA")
+
+    # 生成 RGBA 16bit 格式 COE
+    convert_image_to_coe("heart.png", "heart.coe", resize=(52, 52), mode="RGBA")
+
+    # 生成 RGBA 16bit 格式 COE
+    convert_image_to_coe("emptyheart.png", "emptyheart.coe", resize=(52, 52), mode="RGBA")

@@ -115,6 +115,8 @@ module display_manager (
     title_data[15:4] : background_data;
 
 
+
+
     wire [15:0] golang_logo_data_0; // RGBA
     wire [15:0] golang_logo_data_1; // RGBA
     wire [15:0] golang_logo_data_2; // RGBA
@@ -248,6 +250,34 @@ module display_manager (
     wire [15:0] mixed_2_11 = (screen_col_address >= 11'd501 && screen_col_address < 11'd543 && screen_row_address >= 11'd406 - mole_height[71:66] && screen_row_address < 11'd406 && golang_logo_data_11[3:0] > 4'h7 && is_start && !is_lose && !is_win) ?
     golang_logo_data_11[15:4] : mixed_2_10;
 
+
+
+    wire [15:0] win_data; // RGBA
+
+    image_reader_win_rgba u_win (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd165),
+        .y(screen_row_address[8:0] - 9'd50),
+        .pixel_rgba(title_data)
+    );
+
+    wire [11:0] mixed_3 = (screen_col_address >= 11'd170 && screen_col_address < 11'd465 && screen_row_address >= 11'd50 && screen_row_address < 11'd350 && title_data[3:0] > 4'h7 && is_win) ? 
+    title_data[15:4] : mixed_2_11;
+
+
+    wire [15:0] failed_data; // RGBA
+
+    image_reader_failed_rgba u_failed (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd165),
+        .y(screen_row_address[8:0] - 9'd50),
+        .pixel_rgba(title_data)
+    );
+
+    wire [11:0] mixed_4 = (screen_col_address >= 11'd170 && screen_col_address < 11'd465 && screen_row_address >= 11'd50 && screen_row_address < 11'd350 && title_data[3:0] > 4'h7 && is_lose) ? 
+    title_data[15:4] : mixed_3;
+
+
     wire [15:0] hammer_data; // RGBA
 
     image_reader_hammer_rgba u_hammer (
@@ -257,7 +287,7 @@ module display_manager (
         .pixel_rgba(hammer_data)
     );
 
-    wire [11:0] mixed_3 = (screen_col_address >= mouse_x_pos - 5 && screen_col_address < mouse_x_pos + 23 && screen_row_address >= mouse_y_pos - 15 && screen_row_address < mouse_y_pos + 15 && hammer_data[3:0] > 4'h7) ?
+    wire [11:0] mixed_5 = (screen_col_address >= mouse_x_pos - 5 && screen_col_address < mouse_x_pos + 23 && screen_row_address >= mouse_y_pos - 15 && screen_row_address < mouse_y_pos + 15 && hammer_data[3:0] > 4'h7) ?
     hammer_data[15:4] : mixed_2_11;
 
     assign pixel_data = { 
