@@ -1,6 +1,7 @@
 module game(
     input clk,        // 时钟信号
     input reset,      // 重置信号
+    input is_pause,      // 暂停信号
     input [11:0] x_pos, // 鼠标X坐标
     input [11:0] y_pos, // 鼠标Y坐标
     input left_btn, // 鼠标左键
@@ -14,13 +15,11 @@ module game(
 );
 
     wire [11:0] mouse_click_mole; // 鼠标是否击中地鼠
-    wire mouse_click_pausebutton; // 鼠标是否点击暂停按钮
     wire mouse_click; // 鼠标是否点击
     wire mouse_right_click; // 鼠标右键点击
     wire [15:0] random_number; // 随机数生成器输出
 
     reg is_start; // 是否开始游戏
-    reg is_pause; // 是否暂停游戏
     reg [15:0] score; // 分数
     reg [31:0] time_left; // 剩余时间
     reg [11:0] mole_up; // 地鼠是否出现
@@ -33,7 +32,6 @@ module game(
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             is_start <= 0;
-            is_pause <= 0;
             score <= 0;
             time_left <= 0; // 时间
             mole_up <= 0; // 地鼠初始状态为不出现
@@ -44,11 +42,7 @@ module game(
                 is_start <= 1; // 开始游戏
             end
         end else if (is_pause) begin
-            if (mouse_click_pausebutton) begin
-                is_pause <= 0; // 继续游戏
-            end
-        end else if (!is_pause && mouse_click_pausebutton) begin
-            is_pause <= 1; // 暂停游戏
+             // 暂停状态下不进行任何操作
         end else if (is_win || is_lose) begin
             if (mouse_right_click) begin
                 is_start <= 0; // 重置游戏
@@ -86,9 +80,7 @@ module game(
 
     buzzer_controller buzzer_controller_inst (
         .clk(clk),
-        .mouse_click_mole(mouse_click_mole),
-        .mole_up(mole_up),
-        .mouse_click_pausebutton(mouse_click_pausebutton),
+        .score(score),
         .mouse_click(mouse_click),
         .is_win(is_win),
         .is_lose(is_lose),
@@ -105,7 +97,6 @@ module game(
         .left_btn(left_btn),
         .right_btn(right_btn),
         .mouse_click_mole(mouse_click_mole),
-        .mouse_click_pausebutton(mouse_click_pausebutton),
         .mouse_click(mouse_click),
         .mouse_right_click(mouse_right_click)
     );

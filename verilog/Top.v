@@ -1,6 +1,7 @@
 module Top (
     input wire clk,                // 时钟信号
-    input wire reset,              // 重置信号
+    input wire SW1,              // 重置信号
+    input wire SW2,              // 暂停信号
     input wire ps2_clk,           // PS/2 时钟线
     input wire ps2_data,          // PS/2 数据线
     output wire beep,               // 蜂鸣器输出
@@ -93,7 +94,8 @@ module Top (
     game game_logic (
         .clk(clk),
         .clk_vga(vga_clk), // VGA时钟
-        .reset(reset),
+        .reset(SW1),
+        .is_pause(SW2),
         .x_pos(mouse_x_pos),
         .y_pos(mouse_y_pos),
         .seg_data(seg_data),

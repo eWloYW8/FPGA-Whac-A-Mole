@@ -5,7 +5,6 @@ module mouse_monitor (
     input left_btn, // 鼠标左键
     input right_btn, // 鼠标右键
     output reg [11:0] mouse_click_mole, // 鼠标是否击中地鼠
-    output reg mouse_click_pausebutton, // 鼠标是否点击暂停按钮
     output reg mouse_click, // 鼠标是否点击
     output reg mouse_right_click // 鼠标右键点击
 );
@@ -33,7 +32,6 @@ module mouse_monitor (
         end else begin
             // 鼠标左键未按下时，重置悬停状态
             mouse_click_mole <= 0;
-            mouse_click_pausebutton <= 0;
             mouse_click <= 0;
         end
 

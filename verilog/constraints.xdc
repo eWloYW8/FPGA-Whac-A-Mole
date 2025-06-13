@@ -21,8 +21,10 @@ set_property PACKAGE_PIN M19 [get_ports ps2_data]
 set_property IOSTANDARD LVCMOS33 [get_ports ps2_data]
 
 # Switches
-set_property PACKAGE_PIN AA10 [get_ports {reset}]
-set_property IOSTANDARD LVCMOS15 [get_ports {reset}]
+set_property PACKAGE_PIN AA10 [get_ports {SW1}]
+set_property IOSTANDARD LVCMOS15 [get_ports {SW1}]
+set_property PACKAGE_PIN AB10 [get_ports {SW2}]
+set_property IOSTANDARD LVCMOS15 [get_ports {SW2}]
 
 # VGA
 set_property -dict {PACKAGE_PIN T20  IOSTANDARD LVCMOS33  SLEW FAST} [get_ports {blue_out[0]}]
