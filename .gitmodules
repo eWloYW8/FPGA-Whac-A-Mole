@@ -1,4 +1,0 @@
-[submodule "report/templates/modern-zju-thesis"]
-	path = report/templates/modern-zju-thesis
-	url = https://github.com/Shuenhoy/modern-zju-thesis
-	branch = master
