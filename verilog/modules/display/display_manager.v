@@ -25,7 +25,7 @@ module display_manager (
         .div_res(div_res)
     );
 
-    always @(posedge div_res[17] or posedge reset) begin
+    always @(posedge div_res[16] or posedge reset) begin
         if (reset) begin
             mole_height <= 72'h000000000000000000000000; // 重置地鼠高度
         end else if (!is_pause) begin
@@ -258,11 +258,11 @@ module display_manager (
         .clk(clk_vga),
         .x(screen_col_address[9:0] - 10'd165),
         .y(screen_row_address[8:0] - 9'd50),
-        .pixel_rgba(title_data)
+        .pixel_rgba(win_data)
     );
 
-    wire [11:0] mixed_3 = (screen_col_address >= 11'd170 && screen_col_address < 11'd465 && screen_row_address >= 11'd50 && screen_row_address < 11'd350 && title_data[3:0] > 4'h7 && is_win) ? 
-    title_data[15:4] : mixed_2_11;
+    wire [11:0] mixed_3 = (screen_col_address >= 11'd170 && screen_col_address < 11'd465 && screen_row_address >= 11'd50 && screen_row_address < 11'd350 && win_data[3:0] > 4'h7 && is_win) ? 
+    win_data[15:4] : mixed_2_11;
 
 
     wire [15:0] failed_data; // RGBA
@@ -271,12 +271,111 @@ module display_manager (
         .clk(clk_vga),
         .x(screen_col_address[9:0] - 10'd165),
         .y(screen_row_address[8:0] - 9'd50),
-        .pixel_rgba(title_data)
+        .pixel_rgba(failed_data)
     );
 
-    wire [11:0] mixed_4 = (screen_col_address >= 11'd170 && screen_col_address < 11'd465 && screen_row_address >= 11'd50 && screen_row_address < 11'd350 && title_data[3:0] > 4'h7 && is_lose) ? 
-    title_data[15:4] : mixed_3;
+    wire [11:0] mixed_4 = (screen_col_address >= 11'd170 && screen_col_address < 11'd465 && screen_row_address >= 11'd50 && screen_row_address < 11'd350 && failed_data[3:0] > 4'h7 && is_lose) ? 
+    failed_data[15:4] : mixed_3;
 
+    wire [15:0] heart_data_0; // RGBA
+    image_reader_heart_rgba u_heart (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd20),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(heart_data_0)
+    );
+
+    wire [15:0] empty_heart_data_0; // RGBA
+    image_reader_emptyheart_rgba u_empty_heart (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd20),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(empty_heart_data_0)
+    );
+
+    wire [15:0] heart_show_data_0 = (live >= 1) ? heart_data_0 : empty_heart_data_0;
+    wire [11:0] mixed_5_0 = (screen_col_address >= 11'd23 && screen_col_address < 11'd72 && screen_row_address >= 11'd20 && screen_row_address < 11'd72 && heart_show_data_0[3:0] > 4'h7 && is_start) ?
+    heart_show_data_0[15:4] : mixed_4;
+
+    wire [15:0] heart_data_1; // RGBA
+    image_reader_heart_rgba u_heart_1 (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd70),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(heart_data_1)
+    );
+
+    wire [15:0] empty_heart_data_1; // RGBA
+    image_reader_emptyheart_rgba u_empty_heart_1 (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd70),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(empty_heart_data_1)
+    );
+
+    wire [15:0] heart_show_data_1 = (live >= 2) ? heart_data_1 : empty_heart_data_1;
+    wire [11:0] mixed_5_1 = (screen_col_address >= 11'd73 && screen_col_address < 11'd152 && screen_row_address >= 11'd20 && screen_row_address < 11'd72 && heart_show_data_1[3:0] > 4'h7 && is_start) ?
+    heart_show_data_1[15:4] : mixed_5_0;
+
+    wire [15:0] heart_data_2; // RGBA
+    image_reader_heart_rgba u_heart_2 (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd120),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(heart_data_2)
+    );
+
+    wire [15:0] empty_heart_data_2; // RGBA
+    image_reader_emptyheart_rgba u_empty_heart_2 (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd120),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(empty_heart_data_2)
+    );
+
+    wire [15:0] heart_show_data_2 = (live >= 3) ? heart_data_2 : empty_heart_data_2;
+    wire [11:0] mixed_5_2 = (screen_col_address >= 11'd123 && screen_col_address < 11'd172 && screen_row_address >= 11'd20 && screen_row_address < 11'd72 && heart_show_data_2[3:0] > 4'h7 && is_start) ?
+    heart_show_data_2[15:4] : mixed_5_1;
+
+    wire [15:0] heart_data_3; // RGBA
+    image_reader_heart_rgba u_heart_3 (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd170),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(heart_data_3)
+    );
+
+    wire [15:0] empty_heart_data_3; // RGBA
+    image_reader_emptyheart_rgba u_empty_heart_3 (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd170),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(empty_heart_data_3)
+    );
+
+    wire [15:0] heart_show_data_3 = (live >= 4) ? heart_data_3 : empty_heart_data_3;
+    wire [11:0] mixed_5_3 = (screen_col_address >= 11'd173 && screen_col_address < 11'd222 && screen_row_address >= 11'd20 && screen_row_address < 11'd72 && heart_show_data_3[3:0] > 4'h7 && is_start) ?
+    heart_show_data_3[15:4] : mixed_5_2;
+
+    wire [15:0] heart_data_4; // RGBA
+    image_reader_heart_rgba u_heart_4 (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd220),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(heart_data_4)
+    );
+
+    wire [15:0] empty_heart_data_4; // RGBA
+    image_reader_emptyheart_rgba u_empty_heart_4 (
+        .clk(clk_vga),
+        .x(screen_col_address[9:0] - 10'd220),
+        .y(screen_row_address[8:0] - 9'd20),
+        .pixel_rgba(empty_heart_data_4)
+    );
+
+    wire [15:0] heart_show_data_4 = (live >= 5) ? heart_data_4 : empty_heart_data_4;
+    wire [11:0] mixed_5_4 = (screen_col_address >= 11'd223 && screen_col_address < 11'd272 && screen_row_address >= 11'd20 && screen_row_address < 11'd72 && heart_show_data_4[3:0] > 4'h7 && is_start) ?
+    heart_show_data_4[15:4] : mixed_5_3;
 
     wire [15:0] hammer_data; // RGBA
 
@@ -287,13 +386,13 @@ module display_manager (
         .pixel_rgba(hammer_data)
     );
 
-    wire [11:0] mixed_5 = (screen_col_address >= mouse_x_pos - 5 && screen_col_address < mouse_x_pos + 23 && screen_row_address >= mouse_y_pos - 15 && screen_row_address < mouse_y_pos + 15 && hammer_data[3:0] > 4'h7) ?
-    hammer_data[15:4] : mixed_2_11;
+    wire [11:0] mixed_6 = (screen_col_address >= mouse_x_pos - 5 && screen_col_address < mouse_x_pos + 23 && screen_row_address >= mouse_y_pos - 15 && screen_row_address < mouse_y_pos + 15 && hammer_data[3:0] > 4'h7) ? 
+    hammer_data[15:4] : mixed_5_4;
 
     assign pixel_data = { 
-        mixed_3[3:0],   // B
-        mixed_3[7:4],   // G
-        mixed_3[11:8]   // R
+        mixed_6[3:0],   // B
+        mixed_6[7:4],   // G
+        mixed_6[11:8]   // R
     };
 
 endmodule

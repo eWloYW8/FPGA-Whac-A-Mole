@@ -26,7 +26,7 @@ module game(
     reg [11:0] mole_up; // 地鼠是否出现
     reg [3:0] level; // 游戏等级
     reg [2:0] live; // 生命值
-    wire is_win = (level > 6); // 是否胜利
+    wire is_win = (level > 7); // 是否胜利
     wire is_lose = (live == 0); // 是否失败
     
     // 主循环
@@ -50,7 +50,7 @@ module game(
         end else if (!is_pause && mouse_click_pausebutton) begin
             is_pause <= 1; // 暂停游戏
         end else if (is_win || is_lose) begin
-            if (mouse_click) begin
+            if (mouse_right_click) begin
                 is_start <= 0; // 重置游戏
                 score <= 0; // 重置分数
                 time_left <= 0; // 重置时间
@@ -65,10 +65,10 @@ module game(
                 if (|mole_up) begin
                     live <= live - 1; // 如果地鼠还在，生命值减少
                     mole_up <= 0; // 地鼠消失
-                    time_left <= {(random_number % 100 + 50) / level, 22'b0}; // 重置时间
+                    time_left <= {(random_number % 50 + 25) / level, 22'b0}; // 重置时间
                 end else begin
                     mole_up[random_number % 12] <= 1; // 随机出现一个地鼠
-                    time_left <= {(random_number % 100 + 50) / level, 22'b0}; // 重置时间
+                    time_left <= {(random_number % 200 + 100) / level, 22'b0}; // 重置时间
                 end
             end
 
@@ -76,7 +76,7 @@ module game(
                 // 如果鼠标点击地鼠且地鼠出现，增加分数
                 score <= score + level * time_left[31:22];
                 mole_up <= 0; // 地鼠消失
-                time_left <= {(random_number % 100 + 50) / level, 22'b0}; // 重置时间
+                time_left <= {(random_number % 50 + 25) / level, 22'b0}; // 重置时间
                 if (score >= 300 * level) begin
                     level <= level + 1; // 升级
                 end
@@ -87,9 +87,12 @@ module game(
     buzzer_controller buzzer_controller_inst (
         .clk(clk),
         .mouse_click_mole(mouse_click_mole),
+        .mole_up(mole_up),
         .mouse_click_pausebutton(mouse_click_pausebutton),
         .mouse_click(mouse_click),
         .is_win(is_win),
+        .is_lose(is_lose),
+        .live(live),
         .enabled(1), // 蜂鸣器启用
         .reset(reset),
         .note(note)
