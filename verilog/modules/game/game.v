@@ -25,7 +25,7 @@ module game(
     reg [11:0] mole_up; // 地鼠是否出现
     reg [3:0] level; // 游戏等级
     reg [2:0] live; // 生命值
-    wire is_win = (level > 7); // 是否胜利
+    wire is_win = (level > 9); // 是否胜利
     wire is_lose = (live == 0); // 是否失败
     
     // 主循环
@@ -71,7 +71,7 @@ module game(
                 score <= score + level * time_left[31:22];
                 mole_up <= 0; // 地鼠消失
                 time_left <= {(random_number % 50 + 25) / level, 22'b0}; // 重置时间
-                if (score >= 300 * level) begin
+                if (score >= 500 * level) begin
                     level <= level + 1; // 升级
                 end
             end
