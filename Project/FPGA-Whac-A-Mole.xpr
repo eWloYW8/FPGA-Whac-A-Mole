@@ -155,7 +155,7 @@
       <File Path="$PSRCDIR/sources_1/imports/verilog/modules/game/buzzer_controller.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../verilog/modules/game/buzzer_controller.v"/>
-          <Attr Name="ImportTime" Val="1749798071"/>
+          <Attr Name="ImportTime" Val="1750334175"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>

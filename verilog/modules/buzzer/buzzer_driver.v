@@ -1,6 +1,6 @@
 module buzzer_driver(
     input clk,        // 时钟信号
-    input [5:0] note, // 6位音调，支持更多低音
+    input [5:0] note, // 6位音调
     output reg beep   // 蜂鸣器输出信号
 );
 
