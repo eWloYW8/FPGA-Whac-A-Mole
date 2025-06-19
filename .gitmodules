@@ -1,0 +1,4 @@
+[submodule "report/templates/ZJU-Project-Report-Template"]
+	path = report/templates/ZJU-Project-Report-Template
+	url = https://github.com/memset0/ZJU-Project-Report-Template
+	branch = master
