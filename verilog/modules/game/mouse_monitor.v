@@ -14,7 +14,6 @@ module mouse_monitor (
 
     always @(negedge clk) begin
         if (left_btn && !prev_left_btn) begin
-            // 坐标判断逻辑待补充
             mouse_click_mole[0] <= (x_pos >= 106 && x_pos <= 151 && y_pos >= 273 && y_pos <= 307);
             mouse_click_mole[1] <= (x_pos >= 230 && x_pos <= 274 && y_pos >= 270 && y_pos <= 305);
             mouse_click_mole[2] <= (x_pos >= 350 && x_pos <= 392 && y_pos >= 271 && y_pos <= 306);

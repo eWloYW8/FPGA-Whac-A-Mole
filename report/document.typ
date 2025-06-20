@@ -26,7 +26,7 @@
     "",
     "",
     _underlined_cell("最后编辑日期：", color: white),
-    _underlined_cell("2025 年 6 月 20 日"),
+    _underlined_cell("2025 年 6 月 21 日"),
     "",
   )
 }
@@ -98,13 +98,13 @@
 
 == 开发环境与工具链
 
-本项目采用 Vivado 2024.2 作为主要开发平台，所有模块均使用 Verilog HDL 编写。
+本项目采用 *Vivado 2024.2* 作为主要开发平台，所有模块均使用 *Verilog HDL* 编写。
 
-图片资源的转换处理使用了 Python Pillow 库，生成适合 FPGA 处理的 coe 格式。
+图片资源的转换处理使用了 Python *Pillow* 库，生成适合 FPGA 处理的 coe 格式。
 
-项目版本管理使用 Git 进行，代码托管在 #link("https://github.com/eWloYW8/FPGA-Whac-A-Mole")[#text(fill: rgb(0,0,255))[该项目的 GitHub 仓库]] 中。
+项目版本管理使用 *Git* 进行，代码托管在 #link("https://github.com/eWloYW8/FPGA-Whac-A-Mole")[#text(fill: rgb(0,0,255))[*该项目的 GitHub 仓库*]] 中。
 
-报告使用 VSCode+Tinymist+#link("https://www.typst.app/")[#text(fill: rgb(0,0,255))[Typst]] 编写，报告中的结构图和流程图使用 #link("https://www.drawio.com/")[#text(fill: rgb(0,0,255))[draw.io]] 绘制。
+报告使用 *VSCode+Tinymist+#link("https://www.typst.app/")[#text(fill: rgb(0,0,255))[Typst]]* 编写，报告中的结构图和流程图使用 #link("https://www.drawio.com/")[#text(fill: rgb(0,0,255))[*draw.io*]] 绘制。
 
 #pagebreak()
 
@@ -269,25 +269,74 @@ $ B_"mixed" = (B_"current" times (16-A_"newlayer") + B_"newlayer" times A_"newla
 
 *如果你正在 SWORD 上进行 FPGA 开发并在驱动方面遇到问题，可以参考这些测试模块，它们提供了对外设的最小功能实现。*
 
+== 模块仿真
+
+尽管主要使用的调试方法是编写独立的测试模块上板测试（见上文“外设测试模块”），该项目对两个耦合程度较低的基础模块进行了仿真测试。
+
+=== 随机数生成器
+
+#align(center)[
+  #image("assets/sim1.png")
+]
+
+正常生成伪随机，模块工作正常。
+
+=== P2S 七段数码管串转并模块
+
+#align(center)[
+  #image("assets/sim2.png")
+]
+
+正常进行串并转换，模块工作正常。
+
 #pagebreak()
 
 = 总结与反馈
 
-== 项目总结
+== 项目总结与参考
 
 本项目利用了 SWORD 平台上的各种资源和外设，成功实现了一个基于 FPGA 的打地鼠游戏。项目功能完整，运行流畅，没有发现明显的问题。
 
-项目演示视频：
+#v(0.3cm)
+
+*本项目绝大部分内容为独立编写，VGA 驱动参考了实验文档外设使用指导中的 vgac 模块*，但对其进行了一定程度的重构，提高了可读性。
+
+#v(0.3cm)
+
+项目在 Vivado 2024.2 上开发，使用的 IP 核包括 Clocking Wizard、Block Memory Generator，它们的版权归属 Xilinx 公司所有。
+
+#v(0.3cm)
+
+项目的图片资源 部分由 AI 生成，部分来自网络。 \
+其中 Golang Gopher 图片采用 CC BY 4.0 许可证发布，原作者为 Renée French。 \
+首页浙江大学的校徽图片的知识产权归浙江大学所有。
+
+#v(0.3cm)
+
+本报告的 Typst 模板 以 MIT 协议开源于 GitHub，原作者为 #link("https://github.com/memset0")[#text(fill: rgb(0,0,255))[memset0]]，仓库地址 #link("https://github.com/memset0/ZJU-Project-Report-Template")[#text(fill: rgb(0,0,255))[见此]]。 \
+我对该模板做了大量修改以适应撰写本报告的需求，主要修改内容包括：重构封面、修改目录样式、修改字体。
+
+#v(0.3cm)
+
+本项目使用的 SWORD 4.0 开发板 由浙江大学计算机科学与技术学院提供，是上海星灯智能科技有限公司的产品。
+
+#v(1cm)
+
+项目演示视频：\
+链接: https://pan.baidu.com/s/1gGVmSN90zO1TJtL5yUlONw?pwd=4md8  \
+提取码: 4md8  
 
 == 开发日志与分工贡献
 
 项目完全使用 Git 进行版本管理，所有代码均托管在 GitHub 上。项目的开发日志和分工贡献可见于 GitHub 仓库的提交记录。
 
-提交日志：#link("https://github.com/eWloYW8/FPGA-Whac-A-Mole/commits/master/")[#text(fill: rgb(0,0,255))[https://github.com/eWloYW8/FPGA-Whac-A-Mole/commits/master/]]
+*提交日志*：#link("https://github.com/eWloYW8/FPGA-Whac-A-Mole/commits/master/")[#text(fill: rgb(0,0,255))[https://github.com/eWloYW8/FPGA-Whac-A-Mole/commits/master/]]
 
-贡献：#link("https://github.com/eWloYW8/FPGA-Whac-A-Mole/graphs/contributors")[#text(fill: rgb(0,0,255))[https://github.com/eWloYW8/FPGA-Whac-A-Mole/graphs/contributors]]
+*贡献*：#link("https://github.com/eWloYW8/FPGA-Whac-A-Mole/graphs/contributors")[#text(fill: rgb(0,0,255))[https://github.com/eWloYW8/FPGA-Whac-A-Mole/graphs/contributors]]
 
-该项目的主要代码和报告由组长我个人编写，主要原因是因为我性子比较急，同时具有较好的开发能力和对项目的整体把控。组员同学提供了一些有益的建议和反馈，同时完成了部分音频的设计和项目演示视频的讲解部分，帮助我更好地完成项目。
+作为组长，该项目的大部分代码和报告由我编写，一方面是因为我推进进度较快，希望在考试前尽快完成项目，同时具有较好的开发能力和对项目的整体把控。
+
+组员同学提供了一些有益的建议和体验反馈，同时完成了部分音频的设计和项目演示视频的讲解部分，帮助我更好地完成项目。
 
 == 一些心得
 
@@ -295,7 +344,7 @@ $ B_"mixed" = (B_"current" times (16-A_"newlayer") + B_"newlayer" times A_"newla
 
 我在计算机软件方面具有一定的基础，但在硬件方面的经验较少。经过这一整个学期的数逻学习，我对计算机硬件的工作原理有了更深入的理解。上这门课的初期，我对计算机硬件的理解只是枯燥无味的电路图和逻辑门，当时的我认为软件的开发是一种自由的艺术创作，而硬件则充满着死板的规则和枯燥的重复排列单元。通过课程的 Lab 和这次课程设计，我逐渐认识到计算机硬件的魅力所在：*计算机的硬件系统也可以向软件一样进行模块化和抽象化，通过不同的模块组合自由地实现复杂的功能。*
 
-感谢蔡铭老师在课上的耐心讲解和指导、助教们的耐心解答和精品实验文档，以及室友的经验和组员的支持，让我在这个项目中学到了很多。
+感谢蔡铭老师在课上的耐心讲解和指导、助教们的耐心解答和瓜豪学长的精品实验文档，以及室友的经验和组员的支持，让我在这个项目中学到了很多。
 
 作为计算机科学与技术专业的学生，我现在深刻认识到计算机硬件和软件的紧密结合是计算机科学的核心。未来我还会面临计算机组成、体系结构等更为深入的系统类课程，相信那时的我也能保持写下这篇报告时的热情和对计算机系统的好奇。
 

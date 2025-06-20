@@ -1,8 +1,5 @@
-module vga_driver #(
-    parameter width  = 640,     // 输出图像宽度
-    parameter height = 480      // 输出图像高度
-)(
-    input wire        vga_clk,        // VGA时钟 (需与分辨率匹配)
+module vga_driver (
+    input wire        vga_clk,        // VGA时钟
     input wire        reset,          // 异步复位 (高电平有效)
     input wire [11:0] pixel_data,     // 像素数据 bbbb_gggg_rrrr
     
@@ -16,30 +13,22 @@ module vga_driver #(
     output reg        ver_sync        // 垂直同步信号
 );
 
-// 根据分辨率选择时序参数
-localparam h_active  = (width == 800 && height == 600)  ? 800  : 
-                       (width == 1280 && height == 720) ? 1280 : 640;
+// 时序参数
+localparam h_active  =  640;
                        
-localparam h_front   = (width == 800 && height == 600)  ? 40   : 
-                       (width == 1280 && height == 720) ? 110  : 16;
+localparam h_front   =  16;
                        
-localparam h_pulse   = (width == 800 && height == 600)  ? 128  : 
-                       (width == 1280 && height == 720) ? 40   : 96;
+localparam h_pulse   =  96;
                        
-localparam h_back    = (width == 800 && height == 600)  ? 88   : 
-                       (width == 1280 && height == 720) ? 220  : 48;
+localparam h_back    =  48;
                        
-localparam v_active  = (width == 800 && height == 600)  ? 600  : 
-                       (width == 1280 && height == 720) ? 720  : 480;
+localparam v_active  =  480;
                        
-localparam v_front   = (width == 800 && height == 600)  ? 1    : 
-                       (width == 1280 && height == 720) ? 5    : 11;
+localparam v_front   =  11;
                        
-localparam v_pulse   = (width == 800 && height == 600)  ? 4    : 
-                       (width == 1280 && height == 720) ? 5    : 2;
+localparam v_pulse   =  2;
                        
-localparam v_back    = (width == 800 && height == 600)  ? 23   : 
-                       (width == 1280 && height == 720) ? 20   : 31;
+localparam v_back    =  31;
 
 // 计算总扫描周期
 localparam h_whole = h_active + h_front + h_pulse + h_back;
