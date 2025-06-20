@@ -4,7 +4,7 @@
 #let cover_comments = {
   v(2em)
   tablex(
-    columns: (0.7fr, 0.7fr, 1.68fr, 0.7fr),
+    columns: (0.7fr, 1fr, 1.68fr, 0.7fr),
     align: center + horizon,
     stroke: 0pt,
     inset: 0.5pt,
@@ -115,7 +115,7 @@
 本项目的架构如下图所示：
 
 #align(center)[
-  #image("assets/structure.drawio.svg", width: 80%)
+  #image("assets/structure.png", width: 80%)
 ]
 
 项目主要分为以下几个模块：外设驱动、游戏主逻辑和音视频管理，详细信息将在下面介绍。
@@ -173,7 +173,7 @@ PS2 Mouse Driver 模块会根据 PS/2 鼠标协议解析数据包，它使用一
 游戏的主逻辑是一个有限状态机，为了便于表现，这里对它进行了高度简化，可以表示为下面的不严格的状态转移图：
 
 #align(center)[
-  #image("assets/pseudo-state-graph.drawio.svg")
+  #image("assets/pseudo-state-graph.png")
 ]
 
 由于具体的状态转移图较为复杂，这里只给出一个简化的版本。实际的状态转移图包含了更多细节，例如地鼠出现的具体位置、分数计算、生命值管理等。
@@ -222,7 +222,7 @@ PS2 Mouse Driver 模块会根据 PS/2 鼠标协议解析数据包，它使用一
 
   下面的流程图展示了游戏初始页面的(x,y)坐标的过程：
   #align(center)[
-    #image("assets/display-manager.drawio.svg")
+    #image("assets/display-manager.png")
   ]
 ]
 
@@ -287,7 +287,7 @@ $ B_"mixed" = (B_"current" times (16-A_"newlayer") + B_"newlayer" times A_"newla
 
 贡献：#link("https://github.com/eWloYW8/FPGA-Whac-A-Mole/graphs/contributors")[#text(fill: rgb(0,0,255))[https://github.com/eWloYW8/FPGA-Whac-A-Mole/graphs/contributors]]
 
-该项目的绝大多数代码和报告由组长我个人编写，主要原因是因为我性子比较急，同时具有较好的开发能力和对项目的整体把控。组员同学虽然由于能力和日程原因没有太多直接贡献，但是总体上态度较为积极，提供了一些建议和反馈，同时完成了部分音频的设计和项目演示视频的讲解部分，帮助我更好地完成项目。
+该项目的主要代码和报告由组长我个人编写，主要原因是因为我性子比较急，同时具有较好的开发能力和对项目的整体把控。组员同学提供了一些有益的建议和反馈，同时完成了部分音频的设计和项目演示视频的讲解部分，帮助我更好地完成项目。
 
 == 一些心得
 
@@ -295,4 +295,12 @@ $ B_"mixed" = (B_"current" times (16-A_"newlayer") + B_"newlayer" times A_"newla
 
 我在计算机软件方面具有一定的基础，但在硬件方面的经验较少。经过这一整个学期的数逻学习，我对计算机硬件的工作原理有了更深入的理解。上这门课的初期，我对计算机硬件的理解只是枯燥无味的电路图和逻辑门，当时的我认为软件的开发是一种自由的艺术创作，而硬件则充满着死板的规则和枯燥的重复排列单元。通过课程的 Lab 和这次课程设计，我逐渐认识到计算机硬件的魅力所在：*计算机的硬件系统也可以向软件一样进行模块化和抽象化，通过不同的模块组合自由地实现复杂的功能。*
 
+感谢蔡铭老师在课上的耐心讲解和指导、助教们的耐心解答和精品实验文档，以及室友的经验和组员的支持，让我在这个项目中学到了很多。
+
 作为计算机科学与技术专业的学生，我现在深刻认识到计算机硬件和软件的紧密结合是计算机科学的核心。未来我还会面临计算机组成、体系结构等更为深入的系统类课程，相信那时的我也能保持写下这篇报告时的热情和对计算机系统的好奇。
+
+== 后记
+
+关于地鼠图片的选取：
+
+*本人是 #link("https://golang.google.cn/")[#text(fill: rgb(0,0,255))[Golang]] 语言的爱好者，本项目开发过程中没有一只 #link("https://go.dev/blog/gopher")[#text(fill: rgb(0,0,255))[Gopher]] 受到伤害。*
