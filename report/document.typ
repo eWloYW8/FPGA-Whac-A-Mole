@@ -109,5 +109,5 @@
 == 系统架构
 
 #align(center)[
-  #image("assets/structure.drawio.svg", width: 100%)
+  #image("assets/structure.drawio.svg", width: 80%)
 ]

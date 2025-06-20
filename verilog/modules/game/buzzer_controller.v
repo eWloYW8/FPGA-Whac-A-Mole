@@ -52,105 +52,123 @@ module buzzer_controller(
                 // 播放胜利音效
                 is_playing <= 1;
                 current_notelist <= {
-                    8'd15,
-                    8'd22,
-                    8'd15,
-                    8'd19,
-                    8'd24,
-                    8'd22,
-                    8'd19,
-                    8'd22,
-                    8'd15,
-                    8'd19,
-                    8'd22,
-                    8'd15 
+                    8'd18,  // E.long
+                    8'd18,  // E.long
+                    8'd18,  // E.long
+                    8'd16,  // D.long
+                    8'd16,  // D.long
+                    8'd9,   // D
+                    8'd12,  // A
+                    8'd16,  // D.
+                    8'd9,   // D
+                    8'd12,  // A
+                    8'd16,  // D.
+                    8'd14,  // C.long
+                    8'd14,  // C.long
+                    8'd7,   // E
+                    8'd10,  // G
+                    8'd14,  // C.
+                    8'd7,   // E
+                    8'd10,  // G
+                    8'd14   // C.
                 };
                 current_notelist_length <= {
+                    8'd200,
+                    8'd200,   
+                    8'd200,
+                    8'd200,
+                    8'd200,
                     8'd100,
-                    8'd80, 
-                    8'd80, 
-                    8'd80, 
                     8'd100,
-                    8'd80, 
-                    8'd80, 
-                    8'd80, 
-                    8'd80, 
-                    8'd80, 
                     8'd100,
-                    8'd120 
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd200,
+                    8'd200,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100
                 };
                 current_playtime <= 32'd0;
             end else if (is_lose && !prev_is_lose) begin
                 // 播放失败音效
                 is_playing <= 1;
                 current_notelist <= {
-                    8'd25,
-                    8'd20,
-                    8'd17,
-                    8'd15,
-                    8'd13,
-                    8'd10 
+                    8'd4,   // D
+                    8'd3,  // C#
+                    8'd7,  // F
+                    8'd6,  // E
+                    8'd0,
+                    8'd10, // A
+                    8'd8, // G
+                    8'd10  // A
                 };
                 current_notelist_length <= {
+                    8'd150,
+                    8'd150,
+                    8'd150,
+                    8'd150,
+                    8'd110,
+                    8'd200,
                     8'd100,
-                    8'd100,
-                    8'd100,
-                    8'd100,
-                    8'd120,
-                    8'd140 
+                    8'd100
                 };
                 current_playtime <= 32'd0;
             end else if (score > prev_score) begin
                 is_playing <= 1;
                 current_notelist <= {
-                    8'd25,
-                    8'd22,
-                    8'd19,
-                    8'd15 
+                    8'd26, // C5 — 短促高音，命中瞬间
+                    8'd20, // G4 — 上跳音
+                    8'd17, // E4 — 中音铺垫
+                    8'd13  // C4 — 起始低音
                 };
 
                 current_notelist_length <= {
-                    8'd30,
-                    8'd30,
-                    8'd30,
-                    8'd30 
+                    8'd30,  // C5 — 击中瞬间（短）
+                    8'd30,  // G4 — 稍短
+                    8'd30,  // E4 — 中
+                    8'd30   // C4 — 起手
                 };
                 current_playtime <= 32'd0;
             end else if (live < prev_live) begin
                 is_playing <= 1;
                 current_notelist <= {
-                    8'd12,
-                    8'd18,
-                    8'd26,
-                    8'd30,
-                    8'd34,
-                    8'd36 
+                    8'd12, // A3 — 生命流失感，下坠
+                    8'd18, // D#4 — 尖锐惊吓感
+                    8'd26, // B4 — 紧张
+                    8'd30, // D#5 — 突兀尖锐
+                    8'd34, // G5 — 高频警报
+                    8'd36  // A5 — 命中/警告音
                 };
 
                 current_notelist_length <= {
-                    8'd50,
-                    8'd30,
-                    8'd30,
-                    8'd20,
-                    8'd20,
-                    8'd20 
+                    8'd50, // A3 — 收尾下坠
+                    8'd30,  // D#4
+                    8'd30,  // B4
+                    8'd20,  // D#5
+                    8'd20,  // G5
+                    8'd20   // A5
                 };
                 current_playtime <= 32'd0;
             end else if (mouse_click) begin
                 // 播放点击音效
                 is_playing <= 1;
-                current_notelist <= {
-                    8'd15,
-                    8'd16,
-                    8'd17,
-                    8'd19 
+                current_notelist <= { 
+                    8'd15, // D4 — 收尾下坠，模拟空振
+                    8'd16, // D#4 — 落空提示
+                    8'd17, // E4 — 次级点击声
+                    8'd19  // F4 — 起始“点击”
                 };
 
                 current_notelist_length <= {
-                    8'd30,
-                    8'd20,
-                    8'd20,
-                    8'd30 
+                    8'd30, // D4
+                    8'd20, // D#4
+                    8'd20, // E4
+                    8'd30  // F4
                 };
                 current_playtime <= 32'd0;
             end else begin
