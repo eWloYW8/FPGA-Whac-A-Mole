@@ -52,65 +52,83 @@ module buzzer_controller(
                 // 播放胜利音效
                 is_playing <= 1;
                 current_notelist <= {
-                    8'd15, // C4
-                    8'd22, // G4
-                    8'd15, // C4
-                    8'd19, // E4
-                    8'd24, // A4
-                    8'd22, // G4
-                    8'd19, // E4
-                    8'd22, // G4
-                    8'd15, // C4
-                    8'd19, // E4
-                    8'd22, // G4
-                    8'd15  // C4
+                    8'd18,  // E.long
+                    8'd18,  // E.long
+                    8'd18,  // E.long
+                    8'd16,  // D.long
+                    8'd16,  // D.long
+                    8'd9,   // D
+                    8'd12,  // A
+                    8'd16,  // D.
+                    8'd9,   // D
+                    8'd12,  // A
+                    8'd16,  // D.
+                    8'd14,  // C.long
+                    8'd14,  // C.long
+                    8'd7,   // E
+                    8'd10,  // G
+                    8'd14,  // C.
+                    8'd7,   // E
+                    8'd10,  // G
+                    8'd14   // C.
                 };
                 current_notelist_length <= {
-                    8'd100, // C4
-                    8'd80,  // G4
-                    8'd80,  // C4
-                    8'd80,  // E4
-                    8'd100, // A4
-                    8'd80,  // G4
-                    8'd80,  // E4
-                    8'd80,  // G4
-                    8'd80,  // C4
-                    8'd80,  // E4
-                    8'd100, // G4
-                    8'd120  // C4
+                    8'd200,
+                    8'd200,   
+                    8'd200,
+                    8'd200,
+                    8'd200,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd200,
+                    8'd200,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100,
+                    8'd100
                 };
                 current_playtime <= 32'd0;
             end else if (is_lose && !prev_is_lose) begin
                 // 播放失败音效
                 is_playing <= 1;
                 current_notelist <= {
-                    8'd25, // C4
-                    8'd20, // G3
-                    8'd17, // E3
-                    8'd15, // D3
-                    8'd13, // C3
-                    8'd10  // A2
+                    8'd4,   // D
+                    8'd3,  // C#
+                    8'd7,  // F
+                    8'd6,  // E
+                    8'd0,
+                    8'd10, // A
+                    8'd8, // G
+                    8'd10  // A
                 };
                 current_notelist_length <= {
-                    8'd100, // C4
-                    8'd100, // G3
-                    8'd100, // E3
-                    8'd100, // D3
-                    8'd120, // C3
-                    8'd140  // A2
+                    8'd150,
+                    8'd150,
+                    8'd150,
+                    8'd150,
+                    8'd110,
+                    8'd200,
+                    8'd100,
+                    8'd100
                 };
                 current_playtime <= 32'd0;
             end else if (score > prev_score) begin
                 is_playing <= 1;
                 current_notelist <= {
-                    8'd27, // C5 — 短促高音，命中瞬间
-                    8'd22, // G4 — 上跳音
-                    8'd19, // E4 — 中音铺垫
-                    8'd15  // C4 — 起始低音
+                    8'd26, // C5 — 短促高音，命中瞬间
+                    8'd20, // G4 — 上跳音
+                    8'd17, // E4 — 中音铺垫
+                    8'd13  // C4 — 起始低音
                 };
 
                 current_notelist_length <= {
-                    8'd20,  // C5 — 击中瞬间（短）
+                    8'd30,  // C5 — 击中瞬间（短）
                     8'd30,  // G4 — 稍短
                     8'd30,  // E4 — 中
                     8'd30   // C4 — 起手
@@ -139,18 +157,18 @@ module buzzer_controller(
             end else if (mouse_click) begin
                 // 播放点击音效
                 is_playing <= 1;
-                current_notelist <= {
-                    8'd15, // C4 — 收尾下坠，模拟空振
-                    8'd16, // C#4 — 落空提示
-                    8'd17, // D4 — 次级点击声
-                    8'd19  // E4 — 起始“点击”
+                current_notelist <= { 
+                    8'd15, // D4 — 收尾下坠，模拟空振
+                    8'd16, // D#4 — 落空提示
+                    8'd17, // E4 — 次级点击声
+                    8'd19  // F4 — 起始“点击”
                 };
 
                 current_notelist_length <= {
-                    8'd30, // C4
-                    8'd20, // C#4
-                    8'd20, // D4
-                    8'd30  // E4
+                    8'd30, // D4
+                    8'd20, // D#4
+                    8'd20, // E4
+                    8'd30  // F4
                 };
                 current_playtime <= 32'd0;
             end else begin
