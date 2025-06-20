@@ -107,3 +107,7 @@
 = 项目实现
 
 == 系统架构
+
+#align(center)[
+  #image("assets/structure.drawio.svg", width: 100%)
+]
